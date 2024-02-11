@@ -101,3 +101,37 @@ def dictToAnnotation(data: dict):
     
     return _genAnnotations(image)
 
+# %%
+import cv2
+
+def dictToRNNAnnotation(data: dict):
+    size = (data["height"], data["width"])
+    image = data["Image"]
+    
+    queue = [(1, c)for c in [*image["children"]]]
+    masks = []
+    while queue:
+        child = queue.pop(0)
+        
+        # process
+        if len(masks) < child[0]:
+            masks.append(np.zeros(size))
+            
+        vertices = []
+        for i in range(0, len(child[1]["mask"]), 2):
+            vertices.append([
+                round(child[1]["mask"][i] * (size[1]-1)),
+                round(child[1]["mask"][i+1] * (size[0]-1))
+            ])
+        
+        vertices = np.array([vertices], dtype=np.int32)
+
+        cv2.fillPoly(masks[-1], vertices, color=1)
+        # end process
+          
+        # add children
+        for c in child[1]['children']:
+            queue.append((child[0]+1, c))
+    
+    return masks
+
