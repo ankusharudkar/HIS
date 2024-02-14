@@ -133,5 +133,7 @@ def dictToRNNAnnotation(data: dict):
         for c in child[1]['children']:
             queue.append((child[0]+1, c))
     
+    # final end token
+    masks.append(np.zeros(size))
     return masks
 

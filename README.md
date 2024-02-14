@@ -1,1 +1,1 @@
-# Hierarchical Image Segmentation
+# Image Segmentation
