@@ -1,3 +1,4 @@
+
 # %%
 import numpy as np
 from typing import List, Tuple, Callable
@@ -36,6 +37,10 @@ def flood(mask: np.ndarray,
     flood_area = mask[seed_x, seed_y]
     fill_pixels = [(seed_x, seed_y)]
     
+    # track visited pixels
+    filled = np.zeros_like(mask)
+    filled[seed_x, seed_y] = 1
+    
     def is_valid(i, j):
         return (i >= 0
                 and j >= 0
@@ -43,12 +48,15 @@ def flood(mask: np.ndarray,
                 and j < mask.shape[1])
     
     while fill_pixels:
-        x, y = fill_pixels.pop()
+        x, y = fill_pixels.pop()    
         mask[x, y] = value
         
         for dx, dy in itertools.product([0,1,-1], [0, 1, -1]):
-            if is_valid(x+dx, y+dy) and mask[x+dx, y+dy] == flood_area:
+            if (is_valid(x+dx, y+dy) 
+                and mask[x+dx, y+dy] == flood_area 
+                and filled[x+dx, y+dy] == 0):
                 fill_pixels.append((x+dx, y+dy))
+                filled[x+dx, y+dy] = 1
                     
 
 # %%
@@ -152,8 +160,6 @@ class Tree:
             
         return root
         
-    
-
 # %%
 def is_contained(parent: np.ndarray, child: np.ndarray):
     return np.all((parent & child) == child)
@@ -189,7 +195,7 @@ def get_mask_list(masks: List[np.ndarray]) -> List[np.ndarray]:
     return mask_list
 
 # %%
-def hierarchical_metrics(truth: List[np.ndarray], pred: List[np.ndarray]) -> dict:
+def hierarchical_metrics(truth: List[np.ndarray], pred: List[np.ndarray]) -> dict:    
     
     # ground truth tree
     gt_tree = generate_mask_tree(truth)
@@ -223,6 +229,5 @@ def hierarchical_metrics(truth: List[np.ndarray], pred: List[np.ndarray]) -> dic
     return {
         "hierarchical-precision": precision,
         "hierarchical-recall": recall,
-        "heirarchical-f1": f1
+        "hierarchical-f1": f1
     }
-
