@@ -1,0 +1,11 @@
+nohup: ignoring input
+/home/goliathus/HIS/his_POCs/run.py:380: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  ann = torch.tensor(ann).to("cuda").unsqueeze(dim=0).unsqueeze(dim=0).float()/norm
+/home/goliathus/HIS/his_POCs/run.py:410: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  ann = torch.tensor(ann).to("cuda").unsqueeze(dim=0).unsqueeze(dim=0).float()/norm
+/home/goliathus/HIS/his_POCs/run.py:335: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  input, target = input.to(device), [torch.tensor(t).to(device) for t in target]
+/home/goliathus/HIS/his_POCs/run.py:305: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  input, target = input.to(device), [torch.tensor(t).to(device) for t in target]
+/home/goliathus/HIS/his_POCs/run.py:486: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  input, target = input.to(device), [torch.tensor(t).to(device) for t in target]

@@ -212,10 +212,6 @@ def hierarchical_metrics(truth: List[np.ndarray], pred: List[np.ndarray]) -> dic
     pred_tree.assign_entropy()
     pruned_tree.assign_entropy()
     
-    gt_tree.traverse_inorder(lambda x, l: print("  "*l, x.entropy))
-    pred_tree.traverse_inorder(lambda x, l: print("  "*l, x.entropy))
-    pruned_tree.traverse_inorder(lambda x, l: print("  "*l, x.entropy))
-    
     # compute entropy
     gt_e = gt_tree.total_entropy()
     pred_e = pred_tree.total_entropy()
